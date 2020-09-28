@@ -77,7 +77,4 @@ class Tile
             neighbors_bomb_count == 0 ? "_" : neighbors_bomb_count.to_s
         end
     end
-
-    private
-    attr_writer :neighbors
 end
