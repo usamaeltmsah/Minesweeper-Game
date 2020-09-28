@@ -4,14 +4,13 @@ class Tile
     def initialize(board, pos)
         @board = board
         @pos = pos
-        @revealed = false
+        @bombed = false
         @flagged = false
         @explored = false
     end
 
     def bombed?
-        # Bombed if value is -1
-        value == -1
+        @bombed
     end
 
     def explored?
@@ -56,14 +55,6 @@ class Tile
 
     def unflag
         @flagged = false
-    end
-    
-    def revealed?
-        @revealed
-    end
-
-    def reveal
-        @revealed = true
     end
 
     def valid_tile_pos?(tile_pos)
