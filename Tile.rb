@@ -43,7 +43,11 @@ class Tile
     end
 
     def add_neighbors(tiles)
-        tiles.each { |tile| @neighbors << tile }
+        tiles.each { |tile_pos| @neighbors << tile_pos if valid_tile_pos?(tile_pos) }
+    end
+
+    def valid_tile_pos?(tile_pos)
+        tile_pos.all? { |cord| cord >= 0 }
     end
 
     private
