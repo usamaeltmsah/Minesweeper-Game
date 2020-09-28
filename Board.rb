@@ -17,8 +17,4 @@ class Board
         row, col = pos
         board[row][col]
     end
-
-    def add_neigbors_for_all_tiles
-        board.flatten.each { |tile| tile.add_neighbors_for_tile }
-    end
 end
