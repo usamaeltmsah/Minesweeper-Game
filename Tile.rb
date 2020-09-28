@@ -1,13 +1,12 @@
 class Tile
     FLAG = "\u{1F6A9}"
-    attr_reader :neighbors, :value
+    attr_reader :value
     def initialize(board, pos)
         @board = board
         @pos = pos
         @revealed = false
         @flagged = false
         @explored = false
-        @neighbors = []
     end
 
     def bombed?
@@ -67,8 +66,15 @@ class Tile
         @revealed = true
     end
 
-    def add_neighbors(tiles)
-        tiles.each { |tile_pos| @neighbors << tile_pos }
+    def valid_tile_pos?(tile_pos)
+        tile_pos.all? { |cord| cord.between?(0, @board.size-1) }
+    end
+
+    def neighbors
+        row, col = @pos
+        neighbors = [[row, col+1], [row+1, col], [row+1, col+1], [row, col-1], [row+1, col-1], [row-1, col], [row-1, col+1], [row-1, col-1]]
+        neighbors = neighbors.select { |pos| valid_tile_pos?(pos) }
+        neighbors.map { |pos| @board[pos] }
     end
 
     def reveal
