@@ -15,7 +15,8 @@ class Tile
     end
 
     def self.rand_tile
-        rand < 0.80 ? 0 : -1 # 80% for empty and 20% for bombs
+        val = rand < 0.80 ? 0 : -1 # 80% for empty and 20% for bombs
+        self.new(val)
     end
 
     def flagged?
