@@ -1,9 +1,10 @@
 class Tile
     attr_reader :neighbors, :value
-    def initialize(value)
+    def initialize(value, pos)
         @value = value # -1 => bomb, 0 => Empty
         @revealed = false
         @flagged = false
+        @pos = pos
         @neighbors = []
     end
 
