@@ -1,10 +1,9 @@
 class Tile
     attr_reader :neighbors, :value
-    def initialize(value, pos)
+    def initialize(value)
         @value = value # -1 => bomb, 0 => Empty
         @revealed = false
         @flagged = false
-        @pos = pos
         @neighbors = []
     end
 
@@ -18,7 +17,7 @@ class Tile
     end
 
     def self.rand_tile(bombs_ratio)
-        raise "Not vlid bombs ratio [0.1 ... 0.8]" if !bombs_ratio.between?(0.1..0.8)
+        raise "Not vlid bombs ratio [0.1 ... 0.8]" if !bombs_ratio.between?(0.1, 0.8)
         val = rand < bombs_ratio ? 0 : -1 # 80% for empty and 20% for bombs
         self.new(val)
     end
@@ -43,8 +42,8 @@ class Tile
         self.revealed = true
     end
 
-    def add_neighbor(tile_val)
-        @neighbors << tile_val
+    def add_neighbors(tiles)
+        tiles.each { |tile| @neighbors << tile }
     end
 
     private
