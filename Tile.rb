@@ -14,8 +14,9 @@ class Tile
         value == -1
     end
 
-    def self.rand_tile
-        val = rand < 0.80 ? 0 : -1 # 80% for empty and 20% for bombs
+    def self.rand_tile(bombs_ratio)
+        raise "Not vlid bombs ratio [0.1 ... 0.8]" if !bombs_ratio.between?(0.1..0.8)
+        val = rand < bombs_ratio ? 0 : -1 # 80% for empty and 20% for bombs
         self.new(val)
     end
 

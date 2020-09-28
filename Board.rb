@@ -1,9 +1,10 @@
 require_relative 'Tile.rb'
 
 class Board
-    attr_reader :board
-    def initialize
-        @board = rand_board
+    attr_reader :board, :size
+    def initialize(size, bombs_ratio)
+        @board = rand_board(bombs_ratio)
+        @size = size
     end
 
     def rand_board
