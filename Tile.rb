@@ -1,8 +1,9 @@
 class Tile
     FLAG = "\u{1F6A9}"
     attr_reader :neighbors, :value
-    def initialize(value)
-        @value = value # -1 => bomb, 0 => Empty
+    def initialize(board, pos)
+        @board = board
+        @pos = pos
         @revealed = false
         @flagged = false
         @explored = false
@@ -50,6 +51,19 @@ class Tile
 
     def add_neighbors(tiles)
         tiles.each { |tile_pos| @neighbors << tile_pos }
+    end
+
+    def reveal
+        # used to fully reveal the board at game end
+        if flagged?
+            # mark true and false flags
+            bombed? ? FLAG : "f"
+        elsif bombed?
+            # display a hit bomb as an X
+            explored? ? "X" : "B"
+        else
+            neighbors_bomb_count == 0 ? "_" : neighbors_bomb_count.to_s
+        end
     end
 
     private

@@ -8,7 +8,9 @@ class Board
     end
 
     def rand_board(bombs_ratio)
-        Array.new(size) {Array.new(size) {Tile.rand_tile(bombs_ratio)}}
+        Array.new(size) do |row|
+            Array.new(size) { |col| Tile.new(self, [row, col]) }
+        end
     end
 
     def [](pos)
@@ -27,7 +29,7 @@ class Board
                 tile = self[pos]
                 neighbors = [[row, col+1], [row+1, col], [row+1, col+1], [row, col-1], [row+1, col-1], [row-1, col], [row-1, col+1], [row-1, col-1]]
                 neighbors = neighbors.select { |pos| valid_tile_pos?(pos) }
-                tile.add_neighbors(neighbors)
+                # tile.add_neighbors(neighbors)
             end
         end
     end
