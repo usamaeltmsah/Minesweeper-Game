@@ -1,4 +1,5 @@
 class Tile
+    FLAG = "\u{1F6A9}"
     attr_reader :neighbors, :value
     def initialize(value)
         @value = value # -1 => bomb, 0 => Empty
@@ -12,7 +13,7 @@ class Tile
         value == -1
     end
 
-    def neighbor_bomb_count
+    def neighbors_bomb_count
         neighbors.select(&:bombed?).count
     end
 
@@ -23,31 +24,27 @@ class Tile
     end
 
     def flagged?
-        self.flagged
+        @flagged
     end
 
     def flag
-        self.flagged = true
+        @flagged = true
     end
 
     def unflag
-        self.flagged = false
+        @flagged = false
     end
     
     def revealed?
-        self.revealed
+        @revealed
     end
 
     def reveal
-        self.revealed = true
+        @revealed = true
     end
 
     def add_neighbors(tiles)
-        tiles.each { |tile_pos| @neighbors << tile_pos if valid_tile_pos?(tile_pos) }
-    end
-
-    def valid_tile_pos?(tile_pos)
-        tile_pos.all? { |cord| cord >= 0 }
+        tiles.each { |tile_pos| @neighbors << tile_pos }
     end
 
     private

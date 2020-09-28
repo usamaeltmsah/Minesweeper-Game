@@ -16,13 +16,18 @@ class Board
         board[row][col]
     end
 
+    def valid_tile_pos?(tile_pos)
+        tile_pos.all? { |cord| cord >= 0 }
+    end
+
     def add_neighbors_for_Each_tile
         (0...size).each do |row|
             (0...size).each do |col|
                 pos = [row, col]
                 tile = self[pos]
-                nrighbors = [[row, col+1], [row+1, col], [row+1, col+1], [row, col-1], [row+1, col-1], [row-1, col], [row-1, col+1], [row-1, col-1]]
-                tile.add_neighbors(nrighbors)
+                neighbors = [[row, col+1], [row+1, col], [row+1, col+1], [row, col-1], [row+1, col-1], [row-1, col], [row-1, col+1], [row-1, col-1]]
+                neighbors = neighbors.select { |pos| valid_tile_pos?(pos) }
+                tile.add_neighbors(neighbors)
             end
         end
     end
