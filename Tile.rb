@@ -14,4 +14,12 @@ class Tile
     def flagged?
         state == -1
     end
+    
+    def revealed?
+        state == 1
+    end
+
+    def reveal
+        state = 1
+    end
 end
