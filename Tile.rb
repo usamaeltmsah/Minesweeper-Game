@@ -19,8 +19,26 @@ class Tile
         @explored
     end
 
+    def explore
+        # don't explore flaged tile
+        return self if flagged?
+
+        # don't explore an explored tile
+        return self if explored?
+
+        @explored = true
+        if !bombed? && have_no_neighbor_bombs?
+            neighbors.each(&:explore)
+        end
+        self
+    end
+
     def neighbors_bomb_count
         neighbors.select(&:bombed?).count
+    end
+
+    def have_no_neighbor_bombs?
+        neighbors_bomb_count == 0
     end
 
     def self.rand_tile(bombs_ratio)
