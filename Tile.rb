@@ -17,6 +17,10 @@ class Tile
         @explored
     end
 
+    def plant_bomb
+        @bombed = true
+    end
+
     def explore
         # don't explore flaged tile
         return self if flagged?

@@ -4,6 +4,7 @@ class Board
     attr_reader :grid, :size
     def initialize(size, bombs_num)
         @size = size
+        @bombs_num = bombs_num
         @grid = generate_board
     end
 
@@ -24,5 +25,20 @@ class Board
 
     def lost?
         @grid.flatten.any? { |tile| tile.explored? && tile.bombed? }
+    end
+
+    def plant_bombs
+        cur_bombs = 0
+        while cur_bombs < @bombs_num
+            pos = rand_pos
+            tile = self[pos]
+            next if tile.bombed?
+            tile.plant_bomb
+            cur_bombs += 1
+        end
+    end
+
+    def rand_pos
+        [rand(size), rand(size)]
     end
 end
