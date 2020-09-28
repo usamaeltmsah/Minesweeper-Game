@@ -1,10 +1,11 @@
 class Tile
-    attr_accessor :neighbor_bomb_count, :state
-    attr_reader :neighbors
+    attr_accessor :neighbor_bomb_count
+    attr_reader :neighbors, :value
     def initialize(value)
         @value = value
         @neighbor_bomb_count = 0
-        @state = 0 # [0 => Not revealed, 1 => revealed, -1 => flagged]
+        @revealed = false
+        @flagged = false
         @neighbors = []
     end
 
@@ -14,18 +15,26 @@ class Tile
     end
     
     def flagged?
-        state == -1
+        self.flagged
+    end
+
+    def flag
+        self.flagged = true
+    end
+
+    def unflag
+        self.flagged = false
     end
     
     def revealed?
-        state == 1
+        self.revealed
     end
 
     def reveal
-        state = 1
+        self.revealed = true
     end
 
-    def add_neighbour(tile_val)
+    def add_neighbor(tile_val)
         @neighbors << tile_val
     end
 
