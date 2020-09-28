@@ -17,4 +17,8 @@ class Board
         row, col = pos
         grid[row][col]
     end
+
+    def won?
+        @grid.flatten.all? { |tile| tile.explored? != tile.bombed? }
+    end
 end
