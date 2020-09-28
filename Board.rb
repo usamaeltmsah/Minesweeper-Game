@@ -2,12 +2,12 @@ require_relative 'Tile.rb'
 
 class Board
     attr_reader :grid, :size
-    def initialize(size, bombs_ratio)
+    def initialize(size, bombs_num)
         @size = size
-        @grid = rand_board(bombs_ratio)
+        @grid = generate_board
     end
 
-    def rand_board(bombs_ratio)
+    def generate_board
         Array.new(size) do |row|
             Array.new(size) { |col| Tile.new(self, [row, col]) }
         end
