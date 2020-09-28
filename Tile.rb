@@ -5,12 +5,17 @@ class Tile
         @value = value # -1 => bomb, 0 => Empty
         @revealed = false
         @flagged = false
+        @explored = false
         @neighbors = []
     end
 
     def bombed?
         # Bombed if value is -1
         value == -1
+    end
+
+    def explored?
+        @explored
     end
 
     def neighbors_bomb_count
