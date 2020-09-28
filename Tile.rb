@@ -2,7 +2,7 @@ class Tile
     attr_accessor :neighbor_bomb_count
     attr_reader :neighbors, :value
     def initialize(value)
-        @value = value # Bomb or empty
+        @value = value # -1 => bomb, 0 => Empty
         @neighbor_bomb_count = 0
         @revealed = false
         @flagged = false
@@ -15,8 +15,7 @@ class Tile
     end
 
     def self.rand_tile
-        # -1 => bomb, 0 => Empty
-        rand(-1, 0)
+        rand < 0.80 ? 0 : -1 # 80% for empty and 20% for bombs
     end
 
     def flagged?
