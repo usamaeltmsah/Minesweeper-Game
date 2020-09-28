@@ -21,4 +21,8 @@ class Board
     def won?
         @grid.flatten.all? { |tile| tile.explored? != tile.bombed? }
     end
+
+    def lost?
+        @grid.flatten.any? { |tile| tile.explored? && tile.bombed? }
+    end
 end
