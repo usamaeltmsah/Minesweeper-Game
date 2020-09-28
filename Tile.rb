@@ -1,9 +1,7 @@
 class Tile
-    attr_accessor :neighbor_bomb_count
     attr_reader :neighbors, :value
     def initialize(value)
         @value = value # -1 => bomb, 0 => Empty
-        @neighbor_bomb_count = 0
         @revealed = false
         @flagged = false
         @neighbors = []
@@ -12,6 +10,10 @@ class Tile
     def bombed?
         # Bombed if value is -1
         value == -1
+    end
+
+    def neighbor_bomb_count
+        neighbors.select(&:bombed?).count
     end
 
     def self.rand_tile(bombs_ratio)
