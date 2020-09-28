@@ -49,12 +49,9 @@ class Tile
         @flagged
     end
 
-    def flag
-        @flagged = true
-    end
-
-    def unflag
-        @flagged = false
+    def toggle_flag
+        # Can't flag explored tiles
+        @flagged = !@flagged if !@explored
     end
 
     def valid_tile_pos?(tile_pos)
