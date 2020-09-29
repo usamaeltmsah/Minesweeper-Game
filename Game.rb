@@ -29,6 +29,17 @@ class Minesweeper
         end
     end
 
+    def make_move(action, pos)
+        tile = @board[pos]
+        p action
+        case action
+        when "f"
+            tile.toggle_flag
+        when "e"
+            tile.explore
+        end
+    end
+
     def get_pos
         pos = nil
         until valid_pos?(pos)
