@@ -57,12 +57,6 @@ class Tile
         neighbors_bomb_count == 0
     end
 
-    def self.rand_tile(bombs_ratio)
-        raise "Not vlid bombs ratio [0.1 ... 0.8]" if !bombs_ratio.between?(0.1, 0.8)
-        val = rand < bombs_ratio ? 0 : -1 # 80% for empty and 20% for bombs
-        self.new(val)
-    end
-
     def flagged?
         @flagged
     end
