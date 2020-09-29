@@ -1,5 +1,8 @@
+require 'colorize'
+
 class Tile
     FLAG = "\u{1F6A9}"
+    BOMB = "\u{1F4A3}"
     attr_reader :value
     def initialize(board, pos)
         @board = board
@@ -69,6 +72,16 @@ class Tile
         neighbors.map { |pos| @board[pos] }
     end
 
+    def render
+        if flagged?
+            FLAG
+        elsif explored?
+            have_no_neighbor_bombs? ? "_" : neighbors_bomb_count.to_s
+        else
+            "*"
+        end
+    end
+
     def reveal
         # used to fully reveal the board at game end
         if flagged?
@@ -76,9 +89,9 @@ class Tile
             bombed? ? FLAG : "f"
         elsif bombed?
             # display a hit bomb as an X
-            explored? ? "X" : "B"
+            explored? ? "X".colorize(:red) : BOMB
         else
-            neighbors_bomb_count == 0 ? "_" : neighbors_bomb_count.to_s
+            have_no_neighbor_bombs? ? "_" : neighbors_bomb_count.to_s
         end
     end
 end

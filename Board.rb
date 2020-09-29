@@ -6,6 +6,7 @@ class Board
         @size = size
         @bombs_num = bombs_num
         @grid = generate_board
+        plant_bombs
     end
 
     def generate_board
@@ -25,6 +26,21 @@ class Board
 
     def lost?
         @grid.flatten.any? { |tile| tile.explored? && tile.bombed? }
+    end
+
+    def render(reveal=false)
+        # Reveal the board at the end
+        @grid.each do |row|
+            row.each do |tile|
+               print " #{reveal ? tile.reveal : tile.render} ".colorize(:black).on_white
+            end
+            puts
+        end
+        nil
+    end
+
+    def reveal
+        render(true)
     end
 
     def plant_bombs
