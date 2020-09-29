@@ -1,4 +1,5 @@
 require_relative 'Board.rb'
+require 'yaml'
 
 class Minesweeper
     LAYOUTS = {
@@ -15,18 +16,18 @@ class Minesweeper
         until @board.won? || @board.lost?
             system("clear")
             puts @board.render
+            print "Enter an action ex. `e` -> Explore or `f` -> Flag/Unflag and `s` -> Save > "
+            action = get_action
             print "Enter position ex. `1 2` > "
             pos = get_pos
-            print "Enter an action ex. `e` -> Explore or `f` -> Flag/Unflag > "
-            action = get_action
             make_move(action, pos)
         end
         
         if @board.won?
-            puts "You win!"
+            puts "You win!".colorize(:green).on_white
         elsif @board.lost?
             puts @board.reveal
-            puts "**LOSER!**"
+            puts "**LOSER!**".colorize(:red).on_white
         end
     end
 
@@ -37,7 +38,16 @@ class Minesweeper
             tile.toggle_flag
         when "e"
             tile.explore
+        when "s"
+            save
         end
+    end
+
+    def save
+        print "Enter file name to save at: "
+        file = gets.chomp
+
+        File.write(file, YAML::dump(self))
     end
 
     def get_pos
@@ -62,7 +72,16 @@ class Minesweeper
 
     def valid_action?(action)
         return false if action.nil?
-        actions = ['f', 'e']
+        actions = ['f', 'e', 's']
         actions.include?(action)
+    end
+
+    if $PROGRAM_NAME == __FILE__
+        case ARGV.count
+        when 0
+            Minesweeper.new(:s).play
+        when 1
+            YAML::load_file(ARGV.shift).play
+        end
     end
 end
