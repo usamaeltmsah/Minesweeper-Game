@@ -1,6 +1,17 @@
 require 'colorize'
 
 class Tile
+    CORDS = [
+        [0, 1],
+        [1, 0],
+        [1, 1],
+        [-1, -1],
+        [0, -1],
+        [-1, 0],
+        [1, -1],
+        [-1, 1]
+    ]
+
     FLAG = "\u{1F6A9}"
     BOMB = "\u{1F4A3}"
     attr_reader :value
@@ -67,7 +78,7 @@ class Tile
 
     def neighbors
         row, col = @pos
-        neighbors = [[row, col+1], [row+1, col], [row+1, col+1], [row, col-1], [row+1, col-1], [row-1, col], [row-1, col+1], [row-1, col-1]]
+        neighbors = CORDS.map { |cord| [row + cord[0], col + cord[1]] }
         neighbors = neighbors.select { |pos| valid_tile_pos?(pos) }
         neighbors.map { |pos| @board[pos] }
     end
