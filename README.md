@@ -20,10 +20,10 @@
     gem install colorize
     ```
     
-    - Install [YAML](https://github.com/ruby/yaml) to save game
-    ```bash
-    gem install yaml
-    ```
+ - Install [YAML](https://github.com/ruby/yaml) to save game
+ ```bash
+ gem install yaml
+ ```
     
 # Minesweeper
 
