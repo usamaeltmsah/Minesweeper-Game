@@ -18,6 +18,7 @@ class Minesweeper
             puts @board.render
             print "Enter an action ex. `e` -> Explore or `f` -> Flag/Unflag and `s` -> Save > "
             action = get_action
+            save if action == 's'
             print "Enter position ex. `1 2` > "
             pos = get_pos
             make_move(action, pos)
@@ -38,8 +39,6 @@ class Minesweeper
             tile.toggle_flag
         when "e"
             tile.explore
-        when "s"
-            save
         end
     end
 
