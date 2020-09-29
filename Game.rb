@@ -13,6 +13,7 @@ class Minesweeper
 
     def play
         until @board.won? || @board.lost?
+            system("clear")
             puts @board.render
             print "Enter position ex. `1 2` > "
             pos = get_pos
@@ -20,18 +21,17 @@ class Minesweeper
             action = get_action
             make_move(action, pos)
         end
-
+        
         if @board.won?
             puts "You win!"
         elsif @board.lost?
-            puts "**LOSER!**"
             puts @board.reveal
+            puts "**LOSER!**"
         end
     end
 
     def make_move(action, pos)
         tile = @board[pos]
-        p action
         case action
         when "f"
             tile.toggle_flag
