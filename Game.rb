@@ -28,4 +28,30 @@ class Minesweeper
             puts @board.reveal
         end
     end
+
+    def get_pos
+        pos = nil
+        until valid_pos?(pos)
+            pos = gets.chomp.split
+            pos = [pos[0].to_i, pos[1].to_i]
+        end
+        pos
+    end
+
+    def valid_pos?(pos)
+        return false if pos.nil?
+        pos.all? { |cord| cord.between?(0, @board.size) }
+    end
+
+    def get_action
+        action = nil
+        action = gets.chomp until valid_action?(action)
+        action
+    end
+
+    def valid_action?(action)
+        return false if action.nil?
+        actions = ['f', 'e']
+        actions.include?(action)
+    end
 end
