@@ -79,11 +79,11 @@ class Tile
 
     def render
         if flagged?
-            FLAG
+            FLAG + " "
         elsif explored?
-            have_no_neighbor_bombs? ? "_" : neighbors_bomb_count.to_s
+            have_no_neighbor_bombs? ? "_  " : neighbors_bomb_count.to_s + "  "
         else
-            "*"
+            "*  "
         end
     end
 
@@ -91,12 +91,12 @@ class Tile
         # used to fully reveal the board at game end
         if flagged?
             # mark true and false flags
-            bombed? ? FLAG : "f"
+            bombed? ? FLAG + " " : "f  "
         elsif bombed?
             # display a hit bomb as an X
-            explored? ? "X".colorize(:red) : BOMB
+            explored? ? "X ".colorize(:red) : BOMB + " "
         else
-            have_no_neighbor_bombs? ? "_" : neighbors_bomb_count.to_s
+            have_no_neighbor_bombs? ? "_  " : neighbors_bomb_count.to_s + "  "
         end
     end
 end
