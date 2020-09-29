@@ -32,7 +32,7 @@ class Board
         # Reveal the board at the end
         @grid.each do |row|
             row.each do |tile|
-               print " #{reveal ? tile.reveal : tile.render} ".colorize(:black).on_white
+               print " #{reveal ? tile.reveal : tile.render} "
             end
             puts
         end
